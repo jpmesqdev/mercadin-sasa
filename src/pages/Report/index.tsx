@@ -38,7 +38,7 @@ interface ReportProps {
 export function Report(props: ReportProps) {
 
   function getDate() {
-    return `${new Date().getDate()}-${new Date().getMonth()}-${new Date().getFullYear()}`;
+    return `${new Date().getDate()}/${new Date().getMonth()}/${new Date().getFullYear()}`;
   }
 
   function getWeek() {
