@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Route } from 'react-router';
 import { NavLink } from 'react-router-dom';
-import { ReportTable } from '../../components/ReportTable';
 import { CSSTransition } from 'react-transition-group';
 
 import { ReactComponent as ReportIcon } from '../../assets/reports2.svg';
@@ -18,9 +17,15 @@ const CSSClasses = {
 };
 
 interface ReportData {
-  product_name: string,
-  product_quantity: number,
-  product_value: number 
+  product_name: string;
+  quantity: number;
+  payment_type: string;
+  amount: number;
+}
+
+interface TotalData {
+  quantity: number;
+  amount: number;
 }
 
 interface Entry {
@@ -46,15 +51,18 @@ export function Report(props: ReportProps) {
   }
 
   useEffect(() => {
-    api.get("report/daily/2021-09-21/Débito")
+    api.get(`report/daily/${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`)
       .then(response => setDailyReport(response.data.results))
-    api.get("report/monthly/2021-09-01/2021-09-30/Pix")
-      .then(response => setMonthlyReport(response.data.results))
+    api.get(`report/daily/total/${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`)
+      .then(response => setDailyTotal(response.data))
+    // api.get("report/monthly/2021-09-01/2021-09-30/Pix")
+    //   .then(response => setMonthlyReport(response.data.results))
     // api.get("report/yearly")
     //   .then(response => setYearlyReport(response.data.results))
   }, [props.entry])
 
   const [ dailyReport, setDailyReport ] = useState<ReportData[]>([]);
+  const [ dailyTotal, setDailyTotal ] = useState<TotalData[]>([]);
   const [ monthlyReport, setMonthlyReport ] = useState<ReportData[]>([]);
   const [ yearlyReport, setYearlyReport ] = useState<ReportData[]>([]);
 
@@ -63,19 +71,16 @@ export function Report(props: ReportProps) {
       path: '/reports/daily',
       name: 'Relatório diário',
       state: dailyReport,
-      Component: () => <div>daily</div>
     },
     {
       path: '/reports/monthly',
       name: 'Relatório mensal',
       state: monthlyReport,
-      Component: () => <div>monthly</div>
     },
     {
       path: '/reports/yearly',
       name: 'Relatório anual',
       state: yearlyReport,
-      Component: () => <div>yearly</div>
     },
   ];
 
@@ -124,7 +129,33 @@ export function Report(props: ReportProps) {
                     unmountOnExit
                   >
                     <div className="table-content">
-                      <ReportTable dataTable={state} />
+                      <table>
+                        <thead>
+                          <tr>
+                            <th>Produto</th>
+                            <th>Quantidade</th>
+                            <th>Pagamento</th>
+                            <th>Valor</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {state.map((item, index) => (
+                            <tr key={index}>
+                              <td>{item.product_name}</td>
+                              <td>{item.quantity} und</td>
+                              <td>{item.payment_type}</td>
+                              <td>R$ {item.amount}</td>
+                            </tr>                        
+                          ))}
+                        </tbody>
+                        <tfoot>
+                          <tr>
+                            <td>TOTAL</td>
+                            <td>{dailyTotal[0].quantity} und</td>
+                            <td colSpan={2}>R$ {dailyTotal[0].amount}</td>
+                          </tr>
+                        </tfoot>
+                      </table>
                     </div>
 
                   </CSSTransition>

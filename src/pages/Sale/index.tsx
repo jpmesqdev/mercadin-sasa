@@ -12,7 +12,8 @@ interface SaleProps {
 }
 
 interface Product {
-    product_name: string,
+    product_name: string;
+    payment_type: string;
   }
 
 export function Sale(props: SaleProps) {
@@ -20,14 +21,18 @@ export function Sale(props: SaleProps) {
     const history = useHistory();
 
     const [ products, setProducts ] = useState<Product[]>([]);
+    const [ dataList, setDatalist ] = useState<Product[]>([]);
     const [ productName, setProductName ] = useState('');
     const [ paymentType, setPaymentType ] = useState('Dinheiro');
     const [ quantity, setQuantity ] = useState(0);
     const [ amount, setAmount ] = useState(0);
 
     useEffect(() => {
-        api.get('/entry')
-            .then(response => setProducts(response.data.results))
+        api.get('/entry/datalist')
+            .then(response => {
+                setDatalist(response.data)
+                console.log(response.data)
+            });
     }, [])
 
     const data = {
@@ -54,7 +59,7 @@ export function Sale(props: SaleProps) {
             <form onSubmit={event => handleSubmit(event)}>
 
                 <datalist id="products">
-                    {products.map((item, index) => (
+                    {dataList.map((item, index) => (
                         <option key={index} value={item.product_name} />
                     ))}
                 </datalist>
