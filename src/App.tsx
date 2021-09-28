@@ -29,6 +29,7 @@ export function App() {
   useEffect(() => {
     api.get("/entry")
       .then(response => setEntry(response.data.results))
+    console.log(entryUpdate)
   }, [entryUpdate])
 
   if (isLogged !== true) {

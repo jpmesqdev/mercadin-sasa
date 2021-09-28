@@ -7,6 +7,9 @@ import { ReactComponent as ReportIcon } from '../../assets/reports2.svg';
 
 import { api } from '../../services/api';
 
+import { getDate, getRevertDate, getWeek, getMonth, getYear } from '../../utils/Date';
+import { formatCurrency } from '../../utils/Currency';
+
 import { ReportPageContainer } from './style';
 
 const CSSClasses = {
@@ -42,45 +45,61 @@ interface ReportProps {
 
 export function Report(props: ReportProps) {
 
-  function getDate() {
-    return `${new Date().getDate()}/${new Date().getMonth()}/${new Date().getFullYear()}`;
-  }
-
-  function getWeek() {
-    return `${new Date().toLocaleString('pt-br', {weekday: 'long'})}`;
-  }
-
   useEffect(() => {
     api.get(`report/daily/${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`)
       .then(response => setDailyReport(response.data.results))
-    api.get(`report/daily/total/${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`)
-      .then(response => setDailyTotal(response.data))
-    // api.get("report/monthly/2021-09-01/2021-09-30/Pix")
-    //   .then(response => setMonthlyReport(response.data.results))
-    // api.get("report/yearly")
-    //   .then(response => setYearlyReport(response.data.results))
+      
+    api.get(`report/monthly/${getMonth()}`)
+      .then(response => setMonthlyReport(response.data.results))
+
+    api.get(`report/yearly/${getYear()}`)
+      .then(response => setYearlyReport(response.data.results))
+
+    api.get(`report/daily/total/${getRevertDate('-')}`)
+      .then(response => setDailyTotal(response.data[0]))
+
+    api.get(`report/monthly/total/9`)
+      .then(response => setMonthlyTotal(response.data[0]))
+      
+    api.get(`report/yearly/total/2021`)
+      .then(response => setYearlyTotal(response.data[0]))
   }, [props.entry])
 
   const [ dailyReport, setDailyReport ] = useState<ReportData[]>([]);
-  const [ dailyTotal, setDailyTotal ] = useState<TotalData[]>([]);
   const [ monthlyReport, setMonthlyReport ] = useState<ReportData[]>([]);
   const [ yearlyReport, setYearlyReport ] = useState<ReportData[]>([]);
+
+  const [ dailyTotal, setDailyTotal ] = useState({
+    quantity: 0,
+    amount: 0
+  });
+  const [ monthlyTotal, setMonthlyTotal ] = useState({
+    quantity: 0,
+    amount: 0
+  });
+  const [ yearlyTotal, setYearlyTotal ] = useState({
+    quantity: 0,
+    amount: 0
+  });
 
   const Routes = [
     {
       path: '/reports/daily',
       name: 'Relatório diário',
       state: dailyReport,
+      total: dailyTotal
     },
     {
       path: '/reports/monthly',
       name: 'Relatório mensal',
       state: monthlyReport,
+      total: monthlyTotal
     },
     {
       path: '/reports/yearly',
       name: 'Relatório anual',
       state: yearlyReport,
+      total: yearlyTotal
     },
   ];
 
@@ -114,11 +133,11 @@ export function Report(props: ReportProps) {
 
         <div className="report-body">
           <div className="report-date-print">
-            <div className="report-date">{getDate()} ({getWeek()})</div>
+            <div className="report-date">{getDate('/')} ({getWeek()})</div>
           </div>
           
           <div className="table-container">
-            {Routes.map(({ path, state }) => (
+            {Routes.map(({ path, state, total }) => (
               <Route key={path} exact path={path}>
                 {({match}) => (
                   <CSSTransition
@@ -144,15 +163,15 @@ export function Report(props: ReportProps) {
                               <td>{item.product_name}</td>
                               <td>{item.quantity} und</td>
                               <td>{item.payment_type}</td>
-                              <td>R$ {item.amount}</td>
+                              <td>{formatCurrency(item.amount)}</td>
                             </tr>                        
                           ))}
                         </tbody>
                         <tfoot>
                           <tr>
                             <td>TOTAL</td>
-                            <td>{dailyTotal[0].quantity} und</td>
-                            <td colSpan={2}>R$ {dailyTotal[0].amount}</td>
+                            <td>{total.quantity} und</td>
+                            <td colSpan={2}>{formatCurrency(total.amount)}</td>
                           </tr>
                         </tfoot>
                       </table>
