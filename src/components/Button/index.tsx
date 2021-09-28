@@ -5,7 +5,6 @@ interface ButtonProps {
   buttonText: string;
 }
 
-
 export function Button(props: ButtonProps) {
   return (
     <StyledButton buttonClass={props.buttonClass} buttonText={props.buttonText}>

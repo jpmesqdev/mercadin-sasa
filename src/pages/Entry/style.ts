@@ -39,7 +39,6 @@ export const EntryInfo = styled.div`
   .header {
     display: flex;
     align-items: center;
-    //margin: 0rem 1rem -0.5rem 1rem;
     .title-group {
       margin-right: 1rem;
 

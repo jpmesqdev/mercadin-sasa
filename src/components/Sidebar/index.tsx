@@ -1,4 +1,4 @@
-import { ReactComponent as LogoutSVG } from '../../assets/logout.svg';
+import { ReactComponent as LogoSVG } from '../../assets/logo.svg';
 import { ReactComponent as EntrySVG } from '../../assets/entry.svg';
 import { ReactComponent as SalesSVG } from '../../assets/sales.svg';
 import { ReactComponent as ProductsSVG } from '../../assets/products.svg';
@@ -7,7 +7,11 @@ import { ReactComponent as ReportsSVG } from '../../assets/reports.svg';
 import { SidebarContainer, NavLinkStyle } from './style';
 import { NavLink } from 'react-router-dom';
 
-export function Sidebar() {
+interface SidebarAuth {
+  isLogged: (logged: boolean) => void
+}
+
+export function Sidebar(props: SidebarAuth) {
 
   function checkActive(match: any, location: any) {
     if (!location) return false;
@@ -18,12 +22,9 @@ export function Sidebar() {
   return (
 
     <SidebarContainer>
-      <div className="user-content">
-        <div className="user-avatar"></div>
-        <div className="user-titles">
-          <div className="title">Usuário</div>
-          <div className="name">Administrador</div>
-        </div>
+      <div className="logo">
+        <LogoSVG />
+        <span>Mercadin-SASA</span>
       </div>
 
       <nav className="menu">
@@ -42,12 +43,6 @@ export function Sidebar() {
             </NavLink>
           </li>
           <li>
-            <NavLink style={NavLinkStyle} to="/products">
-              <ProductsSVG />
-              Produtos
-            </NavLink>
-          </li>
-          <li>
             <NavLink style={NavLinkStyle} to="/reports">
               <ReportsSVG />
               Relatórios
@@ -57,7 +52,7 @@ export function Sidebar() {
       </nav>
 
       <div className="logout-icon">
-        <LogoutSVG />
+        V1.0
       </div>
     </SidebarContainer>
     

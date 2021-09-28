@@ -10,7 +10,6 @@ import { CSSTransition } from 'react-transition-group';
 import { Login } from './pages/Login';
 import { useEffect, useState } from 'react';
 import { api } from './services/api';
-import { Product } from './pages/Product';
 
 interface Entry {
   product_name: string,
@@ -45,7 +44,7 @@ export function App() {
 
   return (
     <AppContainer>
-      <Sidebar />
+      <Sidebar isLogged={setIsLogged} />
       <div className="content">
         <Route path="/" exact>
           {({ match }) => (
@@ -91,21 +90,6 @@ export function App() {
             >
               <div className="page-container">
                 <Sale entryUpdate={entryUpdate} updateFunc={setEntryUpdate}/>
-              </div>
-            </CSSTransition>
-          )}
-        </Route>
-
-        <Route path="/products">
-          {({ match }) => (
-            <CSSTransition
-              in={match != null}
-              timeout={300}
-              classNames={CSSClasses}
-              unmountOnExit
-            >
-              <div className="page-container">
-                <Product />
               </div>
             </CSSTransition>
           )}

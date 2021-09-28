@@ -24,33 +24,18 @@ export const SidebarContainer = styled.div`
   width: 200px;
   height: 100vh;
 
-  .user-content {
+  .logo {
       margin-top: 1rem;
       display: flex;
       justify-content: center;
-    }
-
-  .user-avatar {
-      width: 50px;
-      height: 50px;
-      border: 1px solid var(--color-gray);
-      margin-right: 1rem;
-    }
-
-  .user-titles {
-      display: flex;
+      align-items: center;
       flex-direction: column;
-      justify-content: center;
+      font-size: 1.3rem;
+      font-weight: 700;
 
-      .title {
-          color: var(--color-gray);
-          font-size: 0.7rem;
-      }
-
-      .name {
-          margin-top: 0.3rem;
-          font-size: 0.9rem;
-          font-weight: 700;
+      span {
+          display: block;
+          margin-top: 1rem;
       }
     }
 
@@ -97,14 +82,8 @@ export const SidebarContainer = styled.div`
 
   .logout-icon {
 
-    transition: ease 0.5s;
-    &:hover {
-        filter: brightness(0.9);
-    }
-
     text-align: center;
     margin-bottom: 1rem;
-    cursor: pointer;
 
     svg {
         path {

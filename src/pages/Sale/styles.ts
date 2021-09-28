@@ -38,13 +38,10 @@ export const SalePageContainer = styled.section`
     color: var(--color-gray);
   }
 
-  
-
     .button-group {
       margin-top: 2rem;
     }
 
-  
   }
 
 `;

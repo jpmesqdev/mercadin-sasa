@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useState } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { Button } from '../../components/Button';
@@ -13,8 +13,7 @@ interface SaleProps {
 
 interface Product {
     product_name: string;
-    payment_type: string;
-  }
+}
 
 export function Sale(props: SaleProps) {
 
@@ -50,6 +49,12 @@ export function Sale(props: SaleProps) {
         let newProducts = [...products];
         setProducts(newProducts);
         history.push("/");
+        
+    }
+
+    function alertz() {
+        console.log('hello!')
+        
     }
 
     return (
@@ -71,7 +76,6 @@ export function Sale(props: SaleProps) {
                     placeholder="Nome do produto..."
                     onChange={event => setProductName(event.target.value)}
                 />
-
 
                 <select onChange={event => setPaymentType(event.target.value)}>
                     <option value="Dinheiro">Dinheiro</option>

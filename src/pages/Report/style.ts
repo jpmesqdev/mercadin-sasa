@@ -10,7 +10,6 @@ export const ReportPageContainer = styled.section`
   .report-content {
     width: 950px;
     padding: 2px;
-    /* border-radius: 10px; */
     margin-top: 60px;
     background: var(--color-white);
 

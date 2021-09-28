@@ -9,7 +9,7 @@ import { GlobalStyle } from './styles/GlobalStyles';
 
 // createServer({
 //   models: {
-//     entry: Model,
+//     entry: Model
 //   },
 //   seeds(server) {
 //     server.db.loadData({
@@ -52,9 +52,9 @@ import { GlobalStyle } from './styles/GlobalStyles';
 //   routes() {
 //     this.namespace = 'api';
 
-//     // this.get("/entry", () => {
-//     //   return this.schema.all('entry');
-//     // })
+//     this.get("/entry", () => {
+//       return this.schema.all('entry');
+//     })
     
 //     this.post("/entry", (schema, request) => {
 //       const data = JSON.parse(request.requestBody);
