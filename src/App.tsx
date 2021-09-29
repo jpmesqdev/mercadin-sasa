@@ -11,7 +11,7 @@ import { Login } from './pages/Login';
 import { useEffect, useState } from 'react';
 import { api } from './services/api';
 
-interface Entry {
+interface IEntry {
   product_name: string,
   quantity: number,
   created_at: string,
@@ -21,7 +21,7 @@ interface Entry {
 
 export function App() {
 
-  const [ entry, setEntry ] = useState<Entry[]>([]);
+  const [ entry, setEntry ] = useState<IEntry[]>([]);
   const [ entryUpdate, setEntryUpdate ] = useState(1);
   const [ isLogged, setIsLogged ] = useState(true);
   

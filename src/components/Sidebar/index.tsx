@@ -1,7 +1,6 @@
 import { ReactComponent as LogoSVG } from '../../assets/logo.svg';
 import { ReactComponent as EntrySVG } from '../../assets/entry.svg';
 import { ReactComponent as SalesSVG } from '../../assets/sales.svg';
-import { ReactComponent as ProductsSVG } from '../../assets/products.svg';
 import { ReactComponent as ReportsSVG } from '../../assets/reports.svg';
 
 import { SidebarContainer, NavLinkStyle } from './style';

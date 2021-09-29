@@ -26,11 +26,6 @@ interface ReportData {
   amount: number;
 }
 
-interface TotalData {
-  quantity: number;
-  amount: number;
-}
-
 interface Entry {
   product_name: string,
   quantity: number,

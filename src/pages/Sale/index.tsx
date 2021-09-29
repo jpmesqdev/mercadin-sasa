@@ -52,11 +52,6 @@ export function Sale(props: SaleProps) {
         
     }
 
-    function alertz() {
-        console.log('hello!')
-        
-    }
-
     return (
         <SalePageContainer>
             <h1>Lançar venda</h1>
