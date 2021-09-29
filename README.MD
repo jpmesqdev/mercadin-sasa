@@ -16,10 +16,6 @@ This project was made with:
 
 <br>
 
----
-
-<br>
-
 ## 🔥 Project
 
 
@@ -32,12 +28,7 @@ This project was made for a friend that have a **small market** in house, he was
 
 <br>
 
----
-
-<br>
-
 ## 🚀 Install and usage
-
 
 * Clone the repository.
 * Install dependencies.
@@ -47,7 +38,6 @@ This project was made for a friend that have a **small market** in house, he was
 yarn install
 yarn start
 ```
----
 
 <br/>
 
