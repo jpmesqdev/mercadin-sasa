@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 
 import { Button } from '../../components/Button';
 import { api } from '../../services/api';
+import { getDate } from '../../utils/Date';
 
 import { SalePageContainer } from './styles';
 
@@ -37,7 +38,7 @@ export function Sale(props: SaleProps) {
     const data = {
         productName,
         paymentType,
-        createdAt: `${new Date().getFullYear()}-${new Date().getMonth()+1}-${new Date().getDate()}`,
+        createdAt: `${getDate('/')}`,
         quantity,
         amount
     };
