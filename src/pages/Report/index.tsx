@@ -41,7 +41,7 @@ interface ReportProps {
 export function Report(props: ReportProps) {
 
   useEffect(() => {
-    api.get(`report/daily/${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`)
+    api.get(`report/daily/${getRevertDate('-')}`)
       .then(response => setDailyReport(response.data.results))
       
     api.get(`report/monthly/${getMonth()}`)
